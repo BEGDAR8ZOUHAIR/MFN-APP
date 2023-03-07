@@ -47,7 +47,7 @@ const Register = () => {
     <View style={styles.container}>
       <Image
         style={{ width: 150, height: 150 }}
-        source={require("../assets/container1.png")}
+        source={require("../assets/container2.png")}
       />
 
       <Text style={styles.title}>Register</Text>

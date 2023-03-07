@@ -25,13 +25,13 @@ export default function Onboarding({ navigation }: Props) {
       id: 2,
       title: "Controlling your cattle's health",
       subtitle: "You can control your cattle's health by using our app",
-      image: require("../assets/container1.png"),
+      image: require("../assets/container2.png"),
     },
     {
       id: 3,
       title: "Cattle's health is our priority",
       subtitle: "We care about your cattle's health",
-      image: require("../assets/container1.png"),
+      image: require("../assets/container3.png"),
     },
   ];
 
