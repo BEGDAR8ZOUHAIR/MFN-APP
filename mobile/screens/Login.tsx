@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   View,
@@ -14,48 +14,58 @@ import {
 const LoginScreen = (): JSX.Element => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-   const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [emailValid, setEmailValid] = useState<boolean>(true);
+  const [passwordValid, setPasswordValid] = useState<boolean>(true);
   const navigation = useNavigation();
 
-const handleLogin = async (): Promise<void> => {
-  setLoading(true);
-  try {
-    const res = await fetch("http://192.168.9.30:5000/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+  const handleLogin = async (): Promise<void> => {
+    setLoading(true);
+    try {
+      const res = await fetch("http://192.168.9.30:5000/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
-    if (res.status === 401) {
-      Alert.alert("Error", "Invalid email or password", [{ text: "OK" }]);
-    } else if (res.status === 200) {
-      navigation.navigate("Nav");
-    } else {
+      if (res.status === 401) {
+        Alert.alert("Error", "Invalid email or password", [{ text: "OK" }]);
+        setEmailValid(false);
+        setPasswordValid(false);
+      } else if (res.status === 200) {
+        navigation.navigate("Nav");
+      } else {
+        Alert.alert("Error", "Something went wrong. Please try again.", [
+          { text: "OK" },
+        ]);
+      }
+    } catch (err) {
+      console.log(err);
       Alert.alert("Error", "Something went wrong. Please try again.", [
         { text: "OK" },
       ]);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    console.log(err);
-    Alert.alert("Error", "Something went wrong. Please try again.", [
-      { text: "OK" },
-    ]);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
+  const handleEmailChange = (value: string): void => {
+    setEmail(value);
+    setEmailValid(true);
+  };
 
-
+  const handlePasswordChange = (value: string): void => {
+    setPassword(value);
+    setPasswordValid(true);
+  };
 
   return (
-   
     <View style={styles.container}>
       <Image
         style={{ width: 150, height: 150 }}
@@ -64,40 +74,46 @@ const handleLogin = async (): Promise<void> => {
 
       <Text style={styles.title}>Login</Text>
       <View style={styles.formContainer}>
-        {/* <Image source={require("../assets/email.png")} style={styles.icon} /> */}
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            !emailValid && {
+              borderColor: "red", borderWidth: 2,},
+          ]}
           placeholder="Email"
           keyboardType="email-address"
           autoCapitalize="none"
           value={email}
-          onChangeText={setEmail}
+          onChangeText={handleEmailChange}
         />
       </View>
       <View style={styles.formContainer}>
-        {/* <Image source={require("../assets/email.png")} style={styles.icon} /> */}
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            !passwordValid && { borderColor: "red", borderWidth: 2 },
+          ]}
           placeholder="Password"
           secureTextEntry={true}
           value={password}
-          onChangeText={setPassword}
+          onChangeText={handlePasswordChange}
         />
       </View>
       {loading ? (
         <ActivityIndicator size="large" color="#0E8388" />
       ) : (
-      <View style={styles.formContainer}>
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.formContainer}>
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </View>
       )}
       <View style={styles.formContainer}>
         <Text style={styles.registerText}>
           Don't have an account?{" "}
           <Text
             style={styles.registerLink}
+
             onPress={() => navigation.navigate("Register")}
           >
             Register
