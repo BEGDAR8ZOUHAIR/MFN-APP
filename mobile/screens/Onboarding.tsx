@@ -1,29 +1,48 @@
-
- import React from "react";
-import { View , Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import Swiper from "react-native-swiper";
 
+type OnboardingItem = {
+  id: number;
+  title: string;
+  subtitle: string;
+  image: number;
+};
 
-export default function Onboarding({ navigation })
-{
-  const onboarding = [
+type Props = {
+  navigation: any;
+};
+
+export default function Onboarding({ navigation }: Props) {
+  const onboarding: OnboardingItem[] = [
     {
-      id: 1, title: "Welcome to Cattle Zoo", subtitle: "The best place to find your cattle", image: require("../assets/container1.png")
+      id: 1,
+      title: "Welcome to Cattle Zoo",
+      subtitle: "The best place to find your cattle",
+      image: require("../assets/container1.png"),
     },
     {
-      id: 2, title: "Controling your cattle's health", subtitle: "You can control your cattle's health by using our app", image: require("../assets/container1.png")
+      id: 2,
+      title: "Controlling your cattle's health",
+      subtitle: "You can control your cattle's health by using our app",
+      image: require("../assets/container1.png"),
     },
     {
-      id: 3, title: "Cattle's health is our priority", subtitle: "We care about your cattle's health", image: require("../assets/container1.png")
+      id: 3,
+      title: "Cattle's health is our priority",
+      subtitle: "We care about your cattle's health",
+      image: require("../assets/container1.png"),
     },
   ];
+
   return (
     <View style={styles.container}>
-      <Swiper paginationStyle={{ 
-        position: "absolute",
-        bottom: 50,
-      }}
-        activeDotColor="#3ED400"
+      <Swiper
+        paginationStyle={{
+          position: "absolute",
+          bottom: 50,
+        }}
+        activeDotColor="#3F497F"
         activeDotStyle={{ width: 20, height: 8 }}
         dotColor="gray"
         loop={false}
@@ -39,7 +58,7 @@ export default function Onboarding({ navigation })
 
       <TouchableOpacity
         style={{
-          backgroundColor: "#3ED400",
+          backgroundColor: "#0E8388",
           paddingVertical: 15,
           borderRadius: 10,
           marginHorizontal: 20,
@@ -58,12 +77,7 @@ export default function Onboarding({ navigation })
           Get Started
         </Text>
       </TouchableOpacity>
-
-
-
-
-    
-     </View>
+    </View>
   );
 }
 
@@ -78,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    sizeMode: "contain",
+    resizeMode: "contain",
   },
   title: {
     fontSize: 22,
@@ -93,12 +107,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 20,
   },
-
-
-
 });
-
-
-
-
-      

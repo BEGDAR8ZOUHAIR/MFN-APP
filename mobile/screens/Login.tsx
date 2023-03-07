@@ -15,10 +15,10 @@ const LoginScreen = (): JSX.Element => {
   const [password, setPassword] = useState<string>("");
   const navigation = useNavigation();
 
-  const handleLogin = async (): Promise<void> => {
+  // const handleLogin = async (): Promise<void> => {
     try {
-      // const res = await fetch("http://192.168.0.171:5000/client/login", {
-      const res = await fetch("http://192.168.9.30:5000/client/login", {
+      const res = await fetch("http://192.168.0.171:5000/client/login", {
+      // const res = await fetch("http://192.168.9.30:5000/client/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 40,
-    backgroundColor: "#92E3A9",
+    backgroundColor: "#0E8388",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   registerLink: {
-    color: "#92E3A9",
+    color: "#0E8388",
     fontWeight: "bold",
   },
  
