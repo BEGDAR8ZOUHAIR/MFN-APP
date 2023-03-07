@@ -12,23 +12,34 @@ import {
 
 const Register = () => {
   const navigation = useNavigation();
-  const [fullName, setFullName] = useState<string>("");
+//  companyName, email, password, phone, address, longitude, latitude 
+  const [companyName, setCompanyName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [longitude, setLongitude] = useState<string>("");
+  const [latitude, setLatitude] = useState<string>("");
+
 
   const handleRegister = async () => {
     try {
-      // const res = await fetch("http://192.168.43.154:5000/client/register", {
-      const res = await fetch("http://192.168.9.30:5000/client/register", {
+      const res = await fetch("http://192.168.9.30:5000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
-          fullName,
+          companyName,
           email,
           password,
+          phone,
+          address,
+          longitude,
+          latitude
+
+       
         }),
       });
       const text = await res.text();
@@ -54,11 +65,11 @@ const Register = () => {
       <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Full Name"
-          keyboardType=""
+          placeholder="Company Name"
+          keyboardType="default"
           autoCapitalize="none"
-          value={fullName}
-          onChangeText={(text) => setFullName(text)}
+          value={companyName}
+          onChangeText={(text) => setCompanyName(text)}
         />
         <TextInput
           style={styles.input}
@@ -71,11 +82,46 @@ const Register = () => {
         <TextInput
           style={styles.input}
           placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry
+          autoCapitalize="none"
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
+        <TextInput
+          style={styles.input}
+          placeholder="Phone"
+          keyboardType="phone-pad"
+          autoCapitalize="none"
+          value={phone}
+          onChangeText={(text) => setPhone(text)}
+        />
 
+        <TextInput
+          style={styles.input}
+          placeholder="Address"
+          keyboardType="default"
+          autoCapitalize="none"
+          value={address}
+          onChangeText={(text) => setAddress(text)}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Longitude"
+          keyboardType="default"
+          autoCapitalize="none"
+          value={longitude}
+          onChangeText={(text) => setLongitude(text)}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Latitude"
+          keyboardType="default"
+          autoCapitalize="none"
+          value={latitude}
+          onChangeText={(text) => setLatitude(text)}
+        />
         <TouchableOpacity style={styles.button} onPress={handleRegister}>
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
