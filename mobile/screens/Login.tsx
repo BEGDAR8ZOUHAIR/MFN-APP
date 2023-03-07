@@ -8,38 +8,51 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 
 const LoginScreen = (): JSX.Element => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+   const [loading, setLoading] = useState<boolean>(false);
   const navigation = useNavigation();
 
-   const handleLogin = async (): Promise<void> => {
-    try {
-      const res = await fetch("http://192.168.9.30:5000/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      const text = await res.text();
-      const data = JSON.parse(text);
+const handleLogin = async (): Promise<void> => {
+  setLoading(true);
+  try {
+    const res = await fetch("http://192.168.9.30:5000/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
 
-      if (data.error) {
-        Alert.alert("Error", data.error, [{ text: "OK" }]);
-      } else {
-        navigation.navigate("Nav");
-      }
-    } catch (err) {
-      console.log(err);
-    }            
-  };
+    if (res.status === 401) {
+      Alert.alert("Error", "Invalid email or password", [{ text: "OK" }]);
+    } else if (res.status === 200) {
+      navigation.navigate("Nav");
+    } else {
+      Alert.alert("Error", "Something went wrong. Please try again.", [
+        { text: "OK" },
+      ]);
+    }
+  } catch (err) {
+    console.log(err);
+    Alert.alert("Error", "Something went wrong. Please try again.", [
+      { text: "OK" },
+    ]);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
 
   return (
    
@@ -70,18 +83,32 @@ const LoginScreen = (): JSX.Element => {
           value={password}
           onChangeText={setPassword}
         />
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text style={styles.registerText}>
-            Don't have an account? <Text style={styles.registerLink}> Register now</Text>
+      </View>
+      {loading ? (
+        <ActivityIndicator size="large" color="#0E8388" />
+      ) : (
+      <View style={styles.formContainer}>
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+          </View>
+      )}
+      <View style={styles.formContainer}>
+        <Text style={styles.registerText}>
+          Don't have an account?{" "}
+          <Text
+            style={styles.registerLink}
+            onPress={() => navigation.navigate("Register")}
+          >
+            Register
           </Text>
-        </TouchableOpacity>
+        </Text>
       </View>
-      </View>
+    </View>
   );
 };
+      
+ 
 
 const styles = StyleSheet.create({
   container: {
