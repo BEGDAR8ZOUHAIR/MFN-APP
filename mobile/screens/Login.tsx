@@ -42,6 +42,7 @@ const LoginScreen = (): JSX.Element => {
   };
 
   return (
+   
     <View style={styles.container}>
       <Image
         style={{ width: 150, height: 150 }}
@@ -78,7 +79,7 @@ const LoginScreen = (): JSX.Element => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </View>
   );
 };
 
@@ -87,6 +88,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 60,
+
   },
   title: {
     fontSize: 24,

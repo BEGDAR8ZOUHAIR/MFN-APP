@@ -1,10 +1,16 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+
 import Home from "../screens/Home";
 import Dashboard from "../screens/Dashboard";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 
 const Tab = createBottomTabNavigator();
+
+
+
+
 
 const Tabs = () => {
   return (
@@ -18,14 +24,14 @@ const Tabs = () => {
             iconName = focused ? "log-in" : "log-in-outline";
           } else if (route.name === "Register") {
             iconName = focused ? "person-add" : "person-add-outline";
-          } else if (route.name === "Dashboard") {
+          } else if (route.name === "List") {
             iconName = focused ? "list" : "list-outline";
           } else {
             iconName = "";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "#92E3A9",
+        tabBarActiveTintColor: "#0E8388",
         tabBarInactiveTintColor: "gray",
       })}
     >
@@ -35,7 +41,7 @@ const Tabs = () => {
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Dashboard"
+        name="List"
         component={Dashboard}
         options={{ headerShown: false }}
       />

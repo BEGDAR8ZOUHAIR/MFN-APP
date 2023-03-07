@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ScrollView,
 } from "react-native";
 
 const Register = () => {
@@ -55,6 +56,9 @@ const Register = () => {
   };
 
   return (
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+    >
     <View style={styles.container}>
       <Image
         style={{ width: 150, height: 150 }}
@@ -132,7 +136,8 @@ const Register = () => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </View>
+      </ScrollView>
   );
 };
 
@@ -141,6 +146,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 20,
+
   },
   title: {
     fontSize: 24,

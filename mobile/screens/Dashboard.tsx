@@ -13,12 +13,11 @@ import { Card, Icon } from "react-native-elements";
 
 interface Scooter {
   id: number;
-  name: string;
-  serialNumber: string;
+  companyName: string;
+  address: string;
   latitude: number;
   longitude: number;
-  battery: number;
-  status: string;
+  phone: number;
 }
 
 const DashboardScreen: React.FC = () => {
@@ -45,8 +44,13 @@ const DashboardScreen: React.FC = () => {
   }, []);
 
   const openDrawer = () => {
+    // i want to open profile screen
     navigation.dispatch(DrawerActions.openDrawer());
+    
   };
+
+
+   
 
   const renderScooter = ({ item }: { item: Scooter }) => {
     return <ScooterCard key={item.id} scooter={item} />;
@@ -55,11 +59,11 @@ const DashboardScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Dashboard</Text>
+        <Text style={styles.title}>List </Text>
         <Icon name="menu" color="#fff" onPress={openDrawer} />
       </View>
       <ImageBackground
-        source={require("../assets/container1.png")}
+        source={require("../assets/dash.png")}
         style={styles.bgImage}
       >
         {isLoading ? (
@@ -85,23 +89,32 @@ const DashboardScreen: React.FC = () => {
   );
 };
 
+
 const ScooterCard: React.FC<{ scooter: Scooter }> = ({ scooter }) => {
-  const battery = parseInt(scooter.battery);
   return (
-    <Card>
-      <Card.Title>{scooter.name}</Card.Title>
+    <Card
+      // shows Vertical Scroll Indicato false
+      // showsVerticalScrollIndicator={false}
+      containerStyle={{
+        borderRadius: 10,
+        backgroundColor: "#fff",
+        padding: 20,
+        margin: 20,
+      }}
+      
+    >
+      <Card.Title>{scooter.companyName}</Card.Title>
       <Card.Divider />
-      <Text style={styles.cardText}>{scooter.serialNumber}</Text>
+      <Text style={styles.cardText}>{scooter.address}</Text>
       <Text style={styles.cardText}>{scooter.latitude}</Text>
       <Text style={styles.cardText}>{scooter.longitude}</Text>
-      <Text style={battery > 20 ? styles.success : styles.failed}>
-        {scooter.battery}
-      </Text>
-      <Text style={scooter.status === "Desponible" ? styles.success : styles.failed}>
+      <Text style={styles.cardText}>{scooter.phone}</Text>
+     
+      {/* <Text style={scooter.status === "Desponible" ? styles.success : styles.failed}>
         {scooter.status}
-      </Text>
+      </Text> */}
       <TouchableOpacity style={styles.reserveButton}>
-        <Text style={styles.buttonText}>Reserve Now</Text>
+        <Text style={styles.buttonText}>Call Now</Text>
       </TouchableOpacity>
     </Card>
 
@@ -118,9 +131,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
 
-    backgroundColor: "#009e60",
+    backgroundColor: "#0E8388",
 
-    padding: 20,
+    padding: 30,
   },
   title: {
     fontSize: 20,
@@ -151,7 +164,7 @@ const styles = StyleSheet.create({
     color: "#FF0000",
   },
   reserveButton: {
-    backgroundColor: "#000",
+    backgroundColor: "#0E8388",
     borderRadius: 10,
 
     padding: 10,
