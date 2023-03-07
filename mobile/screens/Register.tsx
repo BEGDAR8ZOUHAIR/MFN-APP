@@ -18,8 +18,8 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await fetch("http://192.168.43.154:5000/client/register", {
-      // const res = await fetch("http://192.168.9.30:5000/client/register", {
+      // const res = await fetch("http://192.168.43.154:5000/client/register", {
+      const res = await fetch("http://192.168.9.30:5000/client/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

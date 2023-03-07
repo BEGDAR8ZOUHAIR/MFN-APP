@@ -29,8 +29,8 @@ const DashboardScreen: React.FC = () => {
   const loadScooters = async () => {
     try {
       const response = await fetch(
-        "http://192.168.43.154:5000/client/scooters"
-        // "http://192.168.9.30:5000/client/scooters"
+        // "http://192.168.43.154:5000/client/scooters"
+        "http://192.168.9.30:5000/client/scooters"
       );
       const text = await response.text();
       const data = JSON.parse(text) as Scooter[];
