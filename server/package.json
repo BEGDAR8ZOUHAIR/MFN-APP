@@ -1,7 +1,7 @@
 {
-  "name": "escooter",
+  "name": "mfn-app",
   "version": "1.0.0",
-  "description": "E-scooter rental app",
+  "description": "mfn-app of transport and logistics",
   "main": "server.js",
   "scripts": {
     "start": "node api/server.js ",

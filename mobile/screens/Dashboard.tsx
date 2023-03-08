@@ -8,10 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { DrawerActions } from "@react-navigation/native";
 import { Card, Icon } from "react-native-elements";
 
-interface Scooter {
+interface User {
   id: number;
   companyName: string;
   address: string;
@@ -22,17 +21,17 @@ interface Scooter {
 
 const DashboardScreen: React.FC = () => {
   const navigation = useNavigation();
-  const [scooters, setScooters] = useState<Scooter[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const loadScooters = async () => {
+  const loadUsers = async () => {
     try {
       const response = await fetch(
         "http://192.168.9.30:5000/user/allUsers"
       );
       const text = await response.text();
-      const data = JSON.parse(text) as Scooter[];
-      setScooters(data);
+      const data = JSON.parse(text) as User[];
+      setUsers(data);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -40,20 +39,16 @@ const DashboardScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    loadScooters();
+    loadUsers();
   }, []);
 
-  const openDrawer = () => {
-    // i want to open profile screen
-    navigation.dispatch(DrawerActions.openDrawer());
-    
+
+  const renderUserr = ({ item }: { item: User }) => {
+    return <UserCard key={item.id} user={item} />;
   };
 
+  const openDrawer = () => {
 
-   
-
-  const renderScooter = ({ item }: { item: Scooter }) => {
-    return <ScooterCard key={item.id} scooter={item} />;
   };
 
   return (
@@ -76,11 +71,12 @@ const DashboardScreen: React.FC = () => {
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <Text>No items to display</Text>
               </View>
-            )}
-            keyExtractor={(item) => item.id.toString()}
+              )}
+              keyExtractor={(item) => item.id.toString()}
+             
           >
-            {scooters.map((scooter, index) => (
-              <ScooterCard key={`${index}-${scooter.id}`} scooter={scooter} />
+            {users.map((user, index) => (
+              <UserCard key={`${index}-${user.id}`} user={user} />
             ))}
           </ScrollView>
         )}
@@ -90,11 +86,9 @@ const DashboardScreen: React.FC = () => {
 };
 
 
-const ScooterCard: React.FC<{ scooter: Scooter }> = ({ scooter }) => {
+const UserCard: React.FC<{ user: User }> = ({ user }) => {
   return (
     <Card
-      // shows Vertical Scroll Indicato false
-      // showsVerticalScrollIndicator={false}
       containerStyle={{
         borderRadius: 10,
         backgroundColor: "#fff",
@@ -103,15 +97,15 @@ const ScooterCard: React.FC<{ scooter: Scooter }> = ({ scooter }) => {
       }}
       
     >
-      <Card.Title>{scooter.companyName}</Card.Title>
+      <Card.Title>{user.companyName}</Card.Title>
       <Card.Divider />
-      <Text style={styles.cardText}>{scooter.address}</Text>
-      <Text style={styles.cardText}>{scooter.latitude}</Text>
-      <Text style={styles.cardText}>{scooter.longitude}</Text>
-      <Text style={styles.cardText}>{scooter.phone}</Text>
+      <Text style={styles.cardText}>{user.address}</Text>
+      <Text style={styles.cardText}>{user.latitude}</Text>
+      <Text style={styles.cardText}>{user.longitude}</Text>
+      <Text style={styles.cardText}>{user.phone}</Text>
      
-      {/* <Text style={scooter.status === "Desponible" ? styles.success : styles.failed}>
-        {scooter.status}
+      {/* <Text style={user.status === "Desponible" ? styles.success : styles.failed}>
+        {user.status}
       </Text> */}
       <TouchableOpacity style={styles.reserveButton}>
         <Text style={styles.buttonText}>Call Now</Text>
