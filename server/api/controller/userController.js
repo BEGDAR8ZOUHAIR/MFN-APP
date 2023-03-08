@@ -30,6 +30,8 @@ const register = asyncHandler(async (req, res) =>
     throw new Error("User already exists");
   }
 
+
+
   // hash the password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -93,6 +95,7 @@ const getUsers = asyncHandler(async (req, res) =>
 {
   const users = await User.find({});
   res.json(users);
+
 });
 
 // Generate JWT
