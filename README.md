@@ -16,6 +16,17 @@ npm install
 ```bash
 npm start
 ```
+## eas build expo 
+eas init 
+
+and 
+
+eas build --profile development --platform android
+
+or 
+
+eas build --profile development --platform ios
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

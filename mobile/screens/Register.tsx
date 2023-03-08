@@ -25,7 +25,7 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await fetch("http://192.168.9.30:5000/user/register", {
+      const res = await fetch("http://192.168.0.171:5000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
