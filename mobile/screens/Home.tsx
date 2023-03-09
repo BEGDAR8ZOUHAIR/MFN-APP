@@ -11,6 +11,12 @@ const App = () => {
     <View style={styles.page}>
       <View style={styles.container}>
         <MapboxGL.MapView style={styles.map} />
+        {/* camera */}
+        <MapboxGL.Camera
+          zoomLevel={30}
+          centerCoordinate={[31.794525,-7.0849336]}
+        />
+
       </View>
     </View>
   );
@@ -25,8 +31,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    height: 300,
-    width: 300,
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
   map: {
     flex: 1

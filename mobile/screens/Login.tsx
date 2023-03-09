@@ -10,6 +10,7 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
+import { Icon } from "react-native-elements";
 
 const LoginScreen = (): JSX.Element => {
   const [email, setEmail] = useState<string>("");
@@ -119,8 +120,14 @@ const LoginScreen = (): JSX.Element => {
             Register
           </Text>
         </Text>
+         <TouchableOpacity style={styles.buttonMaps} onPress={() => navigation.navigate("Nav")}>
+          <Icon name="map-signs" type="font-awesome" color="tomato" size={34} />
+          <Text style={styles.mapText}>Go To Maps</Text>
+          </TouchableOpacity>
       </View>
+         
     </View>
+    
   );
 };
       
@@ -159,10 +166,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 4,
   },
+  buttonMaps: {
+    height: 40,
+    // backgroundColor: "#0E8388",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    marginTop: 40,
+    
+  },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  mapText: {
+    color: "tomato",
     justifyContent: "center",
     alignItems: "center",
   },
