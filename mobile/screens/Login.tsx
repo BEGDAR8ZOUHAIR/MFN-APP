@@ -122,7 +122,7 @@ const LoginScreen = (): JSX.Element => {
           </Text>
         </Text>
          <TouchableOpacity style={styles.buttonMaps} onPress={() => navigation.navigate("Nav")}>
-          <Icon name="map-signs" type="font-awesome" color="tomato" size={34} />
+          <Icon name="map-signs" type="font-awesome" color="#0E8388" size={34} />
           <Text style={styles.mapText}>Go To Maps</Text>
           </TouchableOpacity>
       </View>

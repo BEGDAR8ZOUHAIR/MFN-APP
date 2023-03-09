@@ -1,6 +1,6 @@
 ## Transit Morocco App
 
-This is a mobile application for the management of public transport in Morocco. It is a project of the 2end year of the cycle of dvelopment of mobile applications at Youcode Safi , MOROCCO.
+This is a mobile application for the management of public transport in Morocco. It is a project of the 2end year of the cycle of dvelopment of mobile applications at Youcode Safi , MOROCCO. 🔥🔥🔥🔥🔥🔥
 
 
 ## Installation
@@ -17,18 +17,25 @@ npm install
 npm start
 ```
 ## eas build expo 
+
+Run this command to build your project: 
 eas init 
 
-and 
+FOR ANDROID 🤖
 
 eas build --profile development --platform android
 
-or 
+FOR IOS 🤖
 
 eas build --profile development --platform ios
 
+## Expo Doctor   🏴‍☠️
+Run this command to fix any issues with your project: 🏴‍☠️
+expo doctor --fix-dependencies
 
-## Contributing
+
+
+## Contributing  🚀
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.

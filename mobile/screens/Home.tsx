@@ -7,35 +7,22 @@ import MapboxGL from '@rnmapbox/maps';
 MapboxGL.setAccessToken(tokenMapBox);
 
 const App = () => {
+  // [Longitud , Latitude] 
+  
+  const coordinates = [-9.227203,32.300815];
   return (
-    <View style={styles.page}>
-      <View style={styles.container}>
-        <MapboxGL.MapView style={styles.map} />
-        {/* camera */}
-        <MapboxGL.Camera
-          zoomLevel={30}
-          centerCoordinate={[31.794525,-7.0849336]}
-        />
-
-      </View>
-    </View>
+    <MapboxGL.MapView style={{ flex: 1 }}>
+      <MapboxGL.Camera
+        zoomLevel={10}
+        centerCoordinate={coordinates}
+      />
+      <MapboxGL.PointAnnotation
+        id="pointAnnotation"
+        coordinate={coordinates}
+      />
+    </MapboxGL.MapView>
+   
   );
 }
 
 export default App;
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-  },
-  map: {
-    flex: 1
-  }
-});
