@@ -23,8 +23,8 @@ const LoginScreen = (): JSX.Element => {
   const handleLogin = async (): Promise<void> => {
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.9.30:5000/user/login", {
-      // const res = await fetch("http://192.168.0.171:5000/user/login", {
+      // const res = await fetch("http://192.168.9.30:5000/user/login", {
+      const res = await fetch("http://192.168.0.171:5000/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   mapText: {
-    color: "tomato",
+    color: "#0E8388",
     justifyContent: "center",
     alignItems: "center",
   },
