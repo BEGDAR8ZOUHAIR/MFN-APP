@@ -19,6 +19,7 @@ npm start
 ## eas build expo 
 
 Run this command to build your project: 
+
 eas init 
 
 FOR ANDROID 🤖
@@ -45,12 +46,3 @@ Please make sure to update tests as appropriate.
 
 ## Authors
 * **Zouhair Begdar** - *Initial work*  
-
-
-
-
-
-
-
-
- 

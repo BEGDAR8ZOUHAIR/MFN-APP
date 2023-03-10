@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -9,11 +10,11 @@ import {
   Image,
   Alert,
   ScrollView,
+  Linking,
 } from "react-native";
 
 const Register = () => {
   const navigation = useNavigation();
-//  companyName, email, password, phone, address, longitude, latitude 
   const [companyName, setCompanyName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -22,11 +23,9 @@ const Register = () => {
   const [longitude, setLongitude] = useState<string>("");
   const [latitude, setLatitude] = useState<string>("");
 
-
   const handleRegister = async () => {
     try {
-      // const res = await fetch("http://192.168.9.30:5000/user/register", {
-      const res = await fetch("http://192.168.0.171:5000/user/register", {
+      const res = await fetch("http://192.168.9.30:5000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,9 +38,7 @@ const Register = () => {
           phone,
           address,
           longitude,
-          latitude
-
-       
+          latitude,
         }),
       });
       const text = await res.text();
@@ -56,89 +53,90 @@ const Register = () => {
     }
   };
 
+  const openMaps = () => {
+    const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    Linking.openURL(url);
+  };
+
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-    >
-    <View style={styles.container}>
-      <Image
-        style={{ width: 150, height: 150 }}
-        source={require("../assets/container2.png")}
-      />
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Register</Text>
+        <View style={styles.formContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Company Name"
+            keyboardType="default"
+            autoCapitalize="none"
+            value={companyName}
+            onChangeText={(text) => setCompanyName(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            secureTextEntry
+            autoCapitalize="none"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Phone"
+            keyboardType="phone-pad"
+            autoCapitalize="none"
+            value={phone}
+            onChangeText={(text) => setPhone(text)}
+          />
 
-      <Text style={styles.title}>Register</Text>
-      <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Company Name"
-          keyboardType="default"
-          autoCapitalize="none"
-          value={companyName}
-          onChangeText={(text) => setCompanyName(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          autoCapitalize="none"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Phone"
-          keyboardType="phone-pad"
-          autoCapitalize="none"
-          value={phone}
-          onChangeText={(text) => setPhone(text)}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Address"
+            keyboardType="default"
+            autoCapitalize="none"
+            value={address}
+            onChangeText={(text) => setAddress(text)}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Address"
-          keyboardType="default"
-          autoCapitalize="none"
-          value={address}
-          onChangeText={(text) => setAddress(text)}
-        />
+          <TextInput
+            style={styles.input}
+            placeholder="Longitude"
+            keyboardType="default"
+            autoCapitalize="none"
+            value={longitude}
+            onChangeText={(text) => setLongitude(text)}
+          />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Longitude"
-          keyboardType="default"
-          autoCapitalize="none"
-          value={longitude}
-          onChangeText={(text) => setLongitude(text)}
-        />
-
-        <TextInput
-          style={styles.input}
-          placeholder="Latitude"
-          keyboardType="default"
-          autoCapitalize="none"
-          value={latitude}
-          onChangeText={(text) => setLatitude(text)}
-        />
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={styles.registerText}>
-            Already have an account?
-            <Text style={styles.registerLink}>Login now</Text>
-          </Text>
-        </TouchableOpacity>
+          <TextInput
+            style={styles.input}
+            placeholder="Latitude"
+            keyboardType="default"
+            autoCapitalize="none"
+            value={latitude}
+            onChangeText={(text) => setLatitude(text)}
+          />
+          <TouchableOpacity style={styles.textMap} onPress={openMaps}>
+            <Text style={styles.buttonText}>Open Maps</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleRegister}>
+            <Text style={styles.buttonText}>Register</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.registerText}>
+              Already have an account?
+              <Text style={styles.registerLink}>Login now</Text>
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      </View>
-      </ScrollView>
+    </ScrollView>
   );
 };
 
@@ -147,13 +145,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
-
+    marginTop: 15,
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 48,
+    marginBottom: 28,
   },
   formContainer: {
     width: "85%",
@@ -185,8 +182,18 @@ const styles = StyleSheet.create({
     color: "#0E8388",
     fontWeight: "bold",
   },
+  textMap: {
+    height: 45,
+    backgroundColor: "#0E8388",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    marginBottom: 16,
+  },
 });
 
 export default Register;
+
+
 
 

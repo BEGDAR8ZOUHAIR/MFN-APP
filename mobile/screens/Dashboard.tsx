@@ -17,6 +17,7 @@ interface User {
   latitude: number;
   longitude: number;
   phone: number;
+  email: string;
 }
 
 const DashboardScreen: React.FC = () => {
@@ -104,6 +105,7 @@ const UserCard: React.FC<{ user: User }> = ({ user }) => {
       <Text style={styles.cardText}>{user.latitude}</Text>
       <Text style={styles.cardText}>{user.longitude}</Text>
       <Text style={styles.cardText}>{user.phone}</Text>
+      <Text style={styles.cardText}>{user.email}</Text>
      
       {/* <Text style={user.status === "Desponible" ? styles.success : styles.failed}>
         {user.status}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from 'react-native';
 import MapboxGL from '@rnmapbox/maps';
-
+import { FlatList } from "react-native-gesture-handler";
 const tokenMapBox = "pk.eyJ1IjoiYmVnZGFyOHpvdWhhaXIiLCJhIjoiY2xlenBlcmVhMDFmbDNwcjI4OGN6MmduNyJ9.C8WddE7zeAKKPswFe7AEjA";
 
 MapboxGL.setAccessToken(tokenMapBox);
@@ -14,7 +14,6 @@ interface MarkerData {
   phone: number;
   email: string;
 }
-
 const CustomCallout = ({ companyName, phone , email}: { companyName: string, phone: number , email: string}) => (
   <View style={styles.calloutContainer}>
     <Text style={styles.calloutTitle}>{companyName}</Text>
@@ -22,7 +21,6 @@ const CustomCallout = ({ companyName, phone , email}: { companyName: string, pho
     <Text style={styles.calloutSubtitle}>{email}</Text>
   </View>
 );
-
 const App = () => {
   const [mapStyle, setMapStyle] = useState<MapboxGL.StyleURL>('mapbox://styles/mapbox/streets-v11');
   const [markers, setMarkers] = useState<MarkerData[]>([]);
@@ -34,15 +32,12 @@ const App = () => {
     const data = await response.json();
     setMarkers(data);
   };
-
   useEffect(() => {
     setTimeout(() => {
       setMapStyle('mapbox://styles/mapbox/satellite-v9');
       setMapCenter([-74.0066, 40.7135]);
     }, 2000);
   }, []);
-
-
 
   return (
     <View style={styles.container}>
@@ -63,7 +58,6 @@ const App = () => {
           animationDuration={0}
           centerCoordinate={mapCenter}
         />
-
         {markers.map((marker,index) => (
           <MapboxGL.PointAnnotation
             key={index} // Add a unique key prop here
@@ -83,8 +77,6 @@ const App = () => {
 
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -133,10 +125,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 
-
-
-
-
 });
-
 export default App;
