@@ -1,52 +1,132 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-
+import { StyleSheet, View, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
 import Home from "../screens/Home";
 import Dashboard from "../screens/Dashboard";
-import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import Profile from "../screens/Profile";
 
 const Tab = createBottomTabNavigator();
-
-
-
-
 
 const Tabs = () => {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName: string;
-          if (route.name === "Home") {
-            iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "Login") {
-            iconName = focused ? "log-in" : "log-in-outline";
-          } else if (route.name === "Register") {
-            iconName = focused ? "person-add" : "person-add-outline";
-          } else if (route.name === "List") {
-            iconName = focused ? "list" : "list-outline";
-          } else {
-            iconName = "";
-          }
-          return <Ionicons name={iconName} size={size} color={color} />;
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          position: "absolute",
+          bottom: 25,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          backgroundColor: "#ffffff",
+          borderRadius: 15,
+          height: 90,
+          ...styles.shadow,
         },
-        tabBarActiveTintColor: "#0E8388",
-        tabBarInactiveTintColor: "gray",
-      })}
+        tabBarShowLabel: false,
+      }}
     >
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 10,
+              }}
+            >
+              <Ionicons
+                name="home"
+                size={focused ? 30 : 25}
+                color={focused ? "#0E8388" : "#748c94"}
+              />
+              <Text
+                style={{
+                  color: focused ? "#0E8388" : "#748c94",
+                  fontSize: 12,
+                }}
+              >
+                Home
+              </Text>
+            </View>
+          ),
+        }}
       />
-      <Tab.Screen
-        name="List"
-        component={Dashboard}
-        options={{ headerShown: false }}
+      <Tab.Screen name="List" component={Dashboard}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 10,
+              }}
+            >
+              <Ionicons
+                name="list"
+                size={focused ? 30 : 25}
+                color={focused ? "#0E8388" : "#748c94"}
+              />
+              <Text
+                style={{
+                  color: focused ? "#0E8388" : "#748c94",
+                  fontSize: 12,
+                }}
+              >
+                List
+              </Text>
+            </View>
+          ),
+        }}
+
+          
+      />
+      <Tab.Screen name="Profile" component={Profile}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                top: 10,
+              }}
+            >
+              <Ionicons
+                name="person"
+                size={focused ? 30 : 25}  
+                color={focused ? "#0E8388" : "#748c94"}
+              />
+              <Text
+                style={{
+                  color: focused ? "#0E8388" : "#748c94",
+                  fontSize: 12,
+                }}
+              >
+                Profile
+              </Text>
+            </View>
+          ),
+        }}
       />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: "#0E8388",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.5,
+    elevation: 5,
+  },
+});
 
 export default Tabs;

@@ -6,7 +6,6 @@ import {
   ImageBackground,
   ScrollView,
   TouchableOpacity,
-  Linking,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Card, Icon } from "react-native-elements";
@@ -21,7 +20,7 @@ interface User {
   email: string;
 }
 
-const DashboardScreen: React.FC = () => {
+const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -45,7 +44,14 @@ const DashboardScreen: React.FC = () => {
     loadUsers();
   }, []);
 
-  const openDrawer = () => { };
+
+  const renderUserr = ({ item }: { item: User }) => {
+    return <UserCard key={item.id} user={item} />;
+  };
+
+  const openDrawer = () => {
+
+  };
 
   return (
     <View style={styles.container}>
@@ -67,8 +73,9 @@ const DashboardScreen: React.FC = () => {
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <Text>No items to display</Text>
               </View>
-            )}
-            keyExtractor={(item) => item.id.toString()}
+              )}
+              keyExtractor={(item) => item.id.toString()}
+             
           >
             {users.map((user, index) => (
               <UserCard key={`${index}-${user.id}`} user={user} />
@@ -80,11 +87,8 @@ const DashboardScreen: React.FC = () => {
   );
 };
 
-const UserCard: React.FC<{ user: User }> = ({ user }) => {
-  const handleCall = () => {
-    Linking.openURL(`tel:${user.phone}`);
-  };
 
+const UserCard: React.FC<{ user: User }> = ({ user }) => {
   return (
     <Card
       containerStyle={{
@@ -93,6 +97,7 @@ const UserCard: React.FC<{ user: User }> = ({ user }) => {
         padding: 20,
         margin: 20,
       }}
+      
     >
       <Card.Title>{user.companyName}</Card.Title>
       <Card.Divider />
@@ -101,9 +106,11 @@ const UserCard: React.FC<{ user: User }> = ({ user }) => {
       <Text style={styles.cardText}>{user.longitude}</Text>
       <Text style={styles.cardText}>{user.phone}</Text>
       <Text style={styles.cardText}>{user.email}</Text>
-      <TouchableOpacity style={styles.reserveButton}
-        onPress={handleCall}
-      >
+     
+      {/* <Text style={user.status === "Desponible" ? styles.success : styles.failed}>
+        {user.status}
+      </Text> */}
+      <TouchableOpacity style={styles.reserveButton}>
         <Text style={styles.buttonText}>Call Now</Text>
       </TouchableOpacity>
     </Card>
@@ -177,6 +184,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DashboardScreen;
+export default ProfileScreen;
 
 

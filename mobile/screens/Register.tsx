@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -15,17 +14,18 @@ import {
 
 const Register = () => {
   const navigation = useNavigation();
-  const [companyName, setCompanyName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const [longitude, setLongitude] = useState<string>("");
-  const [latitude, setLatitude] = useState<string>("");
+  const [companyName, setCompanyName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [latitude, setLatitude] = useState("");
 
-  const handleRegister = async () => {
+  const handleRegister = useCallback(async () => {
     try {
-      const res = await fetch("http://192.168.9.30:5000/user/register", {
+      // const res = await fetch("http://192.168.9.30:5000/user/register", {
+      const res = await fetch("http://192.168.43.154:5000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,8 +41,7 @@ const Register = () => {
           latitude,
         }),
       });
-      const text = await res.text();
-      const data = JSON.parse(text);
+      const data = await res.json();
       if (data.error) {
         Alert.alert("Error", data.error, [{ text: "OK" }]);
       } else {
@@ -51,12 +50,12 @@ const Register = () => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [companyName, email, password, phone, address, longitude, latitude, navigation]);
 
-  const openMaps = () => {
+  const openMaps = useCallback(() => {
     const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
     Linking.openURL(url);
-  };
+  }, [latitude, longitude]);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -69,7 +68,7 @@ const Register = () => {
             keyboardType="default"
             autoCapitalize="none"
             value={companyName}
-            onChangeText={(text) => setCompanyName(text)}
+            onChangeText={setCompanyName}
           />
           <TextInput
             style={styles.input}
@@ -77,7 +76,7 @@ const Register = () => {
             keyboardType="email-address"
             autoCapitalize="none"
             value={email}
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={setEmail}
           />
           <TextInput
             style={styles.input}
@@ -85,7 +84,7 @@ const Register = () => {
             secureTextEntry
             autoCapitalize="none"
             value={password}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={setPassword}
           />
           <TextInput
             style={styles.input}
@@ -93,7 +92,7 @@ const Register = () => {
             keyboardType="phone-pad"
             autoCapitalize="none"
             value={phone}
-            onChangeText={(text) => setPhone(text)}
+            onChangeText={setPhone}
           />
 
           <TextInput
@@ -102,8 +101,11 @@ const Register = () => {
             keyboardType="default"
             autoCapitalize="none"
             value={address}
-            onChangeText={(text) => setAddress(text)}
+            onChangeText={setAddress}
           />
+          <TouchableOpacity style={styles.textMap} onPress={openMaps}>
+            <Text style={styles.buttonText}>Open Maps </Text>
+          </TouchableOpacity>
 
           <TextInput
             style={styles.input}
@@ -111,7 +113,7 @@ const Register = () => {
             keyboardType="default"
             autoCapitalize="none"
             value={longitude}
-            onChangeText={(text) => setLongitude(text)}
+            onChangeText={setLongitude}
           />
 
           <TextInput
@@ -120,11 +122,9 @@ const Register = () => {
             keyboardType="default"
             autoCapitalize="none"
             value={latitude}
-            onChangeText={(text) => setLatitude(text)}
+            onChangeText={setLatitude}
           />
-          <TouchableOpacity style={styles.textMap} onPress={openMaps}>
-            <Text style={styles.buttonText}>Open Maps</Text>
-          </TouchableOpacity>
+
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from 'react-native';
-import MapboxGL from '@rnmapbox/maps';
-import { FlatList } from "react-native-gesture-handler";
+import MapboxGL from '@rnmapbox/maps';  
 const tokenMapBox = "pk.eyJ1IjoiYmVnZGFyOHpvdWhhaXIiLCJhIjoiY2xlenBlcmVhMDFmbDNwcjI4OGN6MmduNyJ9.C8WddE7zeAKKPswFe7AEjA";
 
 MapboxGL.setAccessToken(tokenMapBox);
@@ -25,10 +24,11 @@ const App = () => {
   const [mapStyle, setMapStyle] = useState<MapboxGL.StyleURL>('mapbox://styles/mapbox/streets-v11');
   const [markers, setMarkers] = useState<MarkerData[]>([]);
   const [mapCenter, setMapCenter] = useState<[number, number]>([-74.0066, 40.7135]);
+  const [currentLocation, setCurrentLocation] = useState<[number, number]>([0, 0]);
 
   const loadMarkers = async () => {
-    // const response = await fetch('http://192.168.0.171:5000/user/allUsers');
-    const response = await fetch('http://192.168.9.30:5000/user/allUsers');
+    const response = await fetch('http://192.168.43.154:5000/user/allUsers');
+    // const response = await fetch('http://192.168.9.30:5000/user/allUsers');
     const data = await response.json();
     setMarkers(data);
   };
@@ -45,12 +45,13 @@ const App = () => {
         style={styles.map}
         styleURL={mapStyle}
         centerCoordinate={mapCenter}
-        zoomLevel={20}
+        zoomLevel={25}
         showUserLocation={true}
         logoEnabled={false}
         attributionEnabled={false}
         compassEnabled={false}
         onDidFinishLoadingMap={loadMarkers}
+        
       >
         <MapboxGL.Camera
           zoomLevel={15}
@@ -60,9 +61,9 @@ const App = () => {
         />
         {markers.map((marker,index) => (
           <MapboxGL.PointAnnotation
-            key={index} // Add a unique key prop here
-            // id={marker.id}
+            key={index} 
             coordinate={[marker.longitude, marker.latitude]}
+            calloutOffset={{ x: -15, y: 10 }}
           >
             <View style={styles.annotationContainer}>
               <View style={styles.annotationFill} />
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.6 }],
   },
   calloutContainer: {
-    width: 140,
+    width: 150,
     height: 150,
     paddingHorizontal: 16,
     paddingVertical: 12,
