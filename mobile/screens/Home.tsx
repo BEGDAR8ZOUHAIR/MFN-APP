@@ -5,6 +5,7 @@ const tokenMapBox = "pk.eyJ1IjoiYmVnZGFyOHpvdWhhaXIiLCJhIjoiY2xlenBlcmVhMDFmbDNw
 
 MapboxGL.setAccessToken(tokenMapBox);
 
+
 interface MarkerData {
   id: string;
   latitude: number;
@@ -27,7 +28,7 @@ const App = () => {
   const [currentLocation, setCurrentLocation] = useState<[number, number]>([0, 0]);
 
   const loadMarkers = async () => {
-    const response = await fetch('http://192.168.43.154:5000/user/allUsers');
+    const response = await fetch('http://192.168.9.30:5000/user/allUsers');
     // const response = await fetch('http://192.168.9.30:5000/user/allUsers');
     const data = await response.json();
     setMarkers(data);
@@ -66,6 +67,7 @@ const App = () => {
             calloutOffset={{ x: -15, y: 10 }}
           >
             <View style={styles.annotationContainer}>
+              
               <View style={styles.annotationFill} />
             </View>
             <MapboxGL.Callout>

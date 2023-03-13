@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import  AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   StyleSheet,
   View,
@@ -18,17 +20,22 @@ const LoginScreen = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false);
   const [emailValid, setEmailValid] = useState<boolean>(true);
   const [passwordValid, setPasswordValid] = useState<boolean>(true);
+  const [userId, setUserId] = useState<string>("");
   const navigation = useNavigation();
 
   const handleLogin = async (): Promise<void> => {
+    
+
+
+  
     setLoading(true);
     try {
-      const res = await fetch("http://192.168.43.154:5000/user/login", {
-      // const res = await fetch("http://192.168.0.171:5000/user/login", {
+      const res = await fetch("http://192.168.9.30:5000/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+
         },
         body: JSON.stringify({
           email,
@@ -40,6 +47,10 @@ const LoginScreen = (): JSX.Element => {
         setEmailValid(false);
         setPasswordValid(false);
       } else if (res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+        setUserId(data.id);
+        await AsyncStorage.setItem("userId", data.id);
         navigation.navigate("Nav");
       } else {
         Alert.alert("Error", "Something went wrong. Please try again.", [
@@ -55,6 +66,7 @@ const LoginScreen = (): JSX.Element => {
       setLoading(false);
     }
   };
+  
 
   const handleEmailChange = (value: string): void => {
     setEmail(value);
@@ -122,8 +134,8 @@ const LoginScreen = (): JSX.Element => {
           </Text>
         </Text>
          <TouchableOpacity style={styles.buttonMaps} onPress={() => navigation.navigate("Nav")}>
-          <Icon name="map-signs" type="font-awesome" color="#0E8388" size={34} />
-          <Text style={styles.mapText}>Go To Maps</Text>
+          <Text style={styles.mapText}>Mode Visiteur</Text>
+          <Icon name="map-signs" type="font-awesome" color="red" size={24}  />
           </TouchableOpacity>
       </View>
          
@@ -174,6 +186,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 4,
     marginTop: 40,
+    flexDirection: "row",
     
   },
   buttonText: {
@@ -184,9 +197,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   mapText: {
-    color: "#0E8388",
-    justifyContent: "center",
-    alignItems: "center",
+    color: "red",
+    // space between text and icon
+    marginRight: 10,
+    fontWeight: "bold",
+
   },
   registerText: {
     marginTop: 16,

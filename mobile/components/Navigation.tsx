@@ -5,6 +5,7 @@ import React from "react";
 import Home from "../screens/Home";
 import Dashboard from "../screens/Dashboard";
 import Profile from "../screens/Profile";
+import Setting from "../screens/Setting";
 
 const Tab = createBottomTabNavigator();
 
@@ -14,14 +15,14 @@ const Tabs = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          position: "absolute",
-          bottom: 25,
-          left: 20,
-          right: 20,
+          position: "relative",
+          // bottom: 25,
+          // left: 20,
+          // right: 20,
           elevation: 0,
           backgroundColor: "#ffffff",
           borderRadius: 15,
-          height: 90,
+          height: 70,
           ...styles.shadow,
         },
         tabBarShowLabel: false,
@@ -36,7 +37,7 @@ const Tabs = () => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                top: 10,
+                // top: 10,
               }}
             >
               <Ionicons
@@ -63,7 +64,7 @@ const Tabs = () => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                top: 10,
+                // top: 10,
               }}
             >
               <Ionicons
@@ -85,6 +86,35 @@ const Tabs = () => {
 
           
       />
+      <Tab.Screen name="Setting" component={Setting}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                // top: 10,
+              }}
+            >
+              <Ionicons
+                name="settings"
+                size={focused ? 30 : 25}
+                color={focused ? "#0E8388" : "#748c94"}
+              />
+              <Text
+                style={{
+                  color: focused ? "#0E8388" : "#748c94",
+                  fontSize: 12,
+                }}
+              >
+                Setting
+              </Text>
+            </View>
+          ),
+        }}
+      />
+
+              
       <Tab.Screen name="Profile" component={Profile}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -92,7 +122,7 @@ const Tabs = () => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                top: 10,
+                // top: 10,
               }}
             >
               <Ionicons

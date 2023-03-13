@@ -29,8 +29,7 @@ const DashboardScreen: React.FC = () => {
   const loadUsers = async () => {
     try {
       const response = await fetch(
-        // "http://192.168.9.30:5000/user/allUsers"
-        "http://192.168.43.154:5000/user/allUsers"
+        "http://192.168.9.30:5000/user/allUsers"
       );
       const text = await response.text();
       const data = JSON.parse(text) as User[];
@@ -45,14 +44,8 @@ const DashboardScreen: React.FC = () => {
     loadUsers();
   }, []);
 
-  const openDrawer = () => { };
-
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>List </Text>
-        <Icon name="menu" color="#fff" onPress={openDrawer} />
-      </View>
       <ImageBackground
         source={require("../assets/dash.png")}
         style={styles.bgImage}
@@ -60,11 +53,14 @@ const DashboardScreen: React.FC = () => {
         {isLoading ? (
           <Text style={styles.loadingText}>Loading...</Text>
         ) : (
-          <ScrollView
+            <ScrollView
+             showsVerticalScrollIndicator={false}
             style={styles.scrollView}
             ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
             ListEmptyComponent={() => (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <View
+                style={{ alignItems: "center", justifyContent: "center" }}
+              >
                 <Text>No items to display</Text>
               </View>
             )}
