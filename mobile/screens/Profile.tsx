@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ProfileScreen = () => {
+const ProfileScreen = (): JSX.Element => {
     const route = useRoute();
-    const [user, setUser] = useState(null);
+    const navigation = useNavigation();
+    const [user, setUser] = useState<null | { companyName: string, phone: string, address: string, longitude: number, latitude: number, email: string }>(null);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -26,6 +27,13 @@ const ProfileScreen = () => {
         fetchUserData();
     }, []);
 
+    const handleLogout = async () => {
+        // Clear the user ID from async storage
+        await AsyncStorage.removeItem('userId');
+        // Navigate to the login screen
+        navigation.navigate('Login');
+    }
+
     if (isLoading) {
         return (
             <View style={styles.loadingContainer}>
@@ -34,17 +42,35 @@ const ProfileScreen = () => {
             </View>
         );
     }
-
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{user.companyName}</Text>
-            <Text style={styles.text}>{user.phone}</Text>
-            <Text style={styles.text}>{user.address}</Text>
-            <Text style={styles.text}>Longitude: {user.longitude}</Text>
-            <Text style={styles.text}>Latitude: {user.latitude}</Text>
-            <Text style={styles.text}>{user.email}</Text>
+
+            {user ? (
+                <>
+                    <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                        <Text style={styles.logoutButtonText}>Logout</Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.title}>{user.companyName}</Text>
+                    <Text style={styles.text}>{user.phone}</Text>
+                    <Text style={styles.text}>{user.address}</Text>
+                    <Text style={styles.text}>{user.longitude}</Text>
+                    <Text style={styles.text}>{user.latitude}</Text>
+                    <Text style={styles.text}>{user.email}</Text>
+                </>
+            ) : (
+                <>
+                    <Text style={styles.text}>Your profile is empty.</Text>
+                    <TouchableOpacity
+                        style={styles.registerButton}
+                        onPress={() => navigation.navigate('Register')}>
+                        <Text style={styles.registerButtonText}>Register now</Text>
+                    </TouchableOpacity>
+                </>
+            )}
         </View>
     );
+
 };
 
 const styles = StyleSheet.create({
@@ -59,14 +85,35 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     text: {
-        fontSize: 18,
-        marginBottom: 5,
+        fontSize: 16,
+        marginBottom: 10,
+    },
+    registerButton: {
+        backgroundColor: '#0000ff',
+        padding: 10,
+        borderRadius: 5,
+    },
+    registerButtonText: {
+        color: '#fff',
+        textAlign: 'center',
+    },
+    logoutButton: {
+        backgroundColor: '#0000ff',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    logoutButtonText: {
+        color: '#fff',
+        textAlign: 'center',
     },
     loadingContainer: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
     },
+
+
 });
 
 export default ProfileScreen;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import  AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   StyleSheet,
@@ -24,10 +24,10 @@ const LoginScreen = (): JSX.Element => {
   const navigation = useNavigation();
 
   const handleLogin = async (): Promise<void> => {
-    
 
 
-  
+
+
     setLoading(true);
     try {
       const res = await fetch("http://192.168.9.30:5000/user/login", {
@@ -66,7 +66,7 @@ const LoginScreen = (): JSX.Element => {
       setLoading(false);
     }
   };
-  
+
 
   const handleEmailChange = (value: string): void => {
     setEmail(value);
@@ -76,7 +76,7 @@ const LoginScreen = (): JSX.Element => {
   const handlePasswordChange = (value: string): void => {
     setPassword(value);
     setPasswordValid(true);
-    
+
   };
 
   return (
@@ -92,7 +92,8 @@ const LoginScreen = (): JSX.Element => {
           style={[
             styles.input,
             !emailValid && {
-              borderColor: "red", borderWidth: 2,},
+              borderColor: "red", borderWidth: 2,
+            },
           ]}
           placeholder="Email"
           keyboardType="email-address"
@@ -133,18 +134,18 @@ const LoginScreen = (): JSX.Element => {
             Register
           </Text>
         </Text>
-         <TouchableOpacity style={styles.buttonMaps} onPress={() => navigation.navigate("Nav")}>
+        <TouchableOpacity style={styles.buttonMaps} onPress={() => navigation.navigate("Nav")}>
           <Text style={styles.mapText}>Mode Visiteur</Text>
-          <Icon name="map-signs" type="font-awesome" color="red" size={24}  />
-          </TouchableOpacity>
+          <Icon name="map-signs" type="font-awesome" color="red" size={24} />
+        </TouchableOpacity>
       </View>
-         
+
     </View>
-    
+
   );
 };
-      
- 
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: "85%",
-    
+
   },
   input: {
     height: 40,
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginTop: 40,
     flexDirection: "row",
-    
+
   },
   buttonText: {
     color: "#fff",
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
     color: "#0E8388",
     fontWeight: "bold",
   },
- 
+
 });
 
 export default LoginScreen;

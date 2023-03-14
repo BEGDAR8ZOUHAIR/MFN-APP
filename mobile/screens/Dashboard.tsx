@@ -53,8 +53,8 @@ const DashboardScreen: React.FC = () => {
         {isLoading ? (
           <Text style={styles.loadingText}>Loading...</Text>
         ) : (
-            <ScrollView
-             showsVerticalScrollIndicator={false}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
             style={styles.scrollView}
             ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
             ListEmptyComponent={() => (

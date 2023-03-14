@@ -32,7 +32,16 @@
         "@rnmapbox/maps",
         {
           "RNMapboxMapsImpl": "mapbox",
-          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoiYmVnZGFyOHpvdWhhaXIiLCJhIjoiY2xmMDc4bXM3MDZleDNzbnljbXIxbGV2NiJ9.aeXn0jMEj6x5L-CUrzZHyQ"
+          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoiYmVnZGFyOHpvdWhhaXIiLCJhIjoiY2xmMDc4bXM3MDZleDNzbnljbXIxbGV2NiJ9.aeXn0jMEj6x5L-CUrzZHyQ",
+          "RNMapboxMapsDownloadBaseUrl": "https://api.mapbox.com/downloads/v2/releases/maven",
+          "RNMapboxMapsDownloadVersion": "9.6.1",
+          "RNMapboxMapsDownloadExtension": "aar",
+          "RNMapboxMapsDownloadClassifier": "android-arm-v7",
+          "RNMapboxMapsDownloadGroup": "com.mapbox.mapboxsdk",
+          "RNMapboxMapsDownloadArtifact": "mapbox-android-sdk"
+
+
+
         }
       ]
     ],

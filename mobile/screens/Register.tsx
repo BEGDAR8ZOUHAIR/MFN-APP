@@ -53,7 +53,7 @@ const Register = () => {
   }, [companyName, email, password, phone, address, longitude, latitude, navigation]);
 
   const openMaps = useCallback(() => {
-    const url = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    const url = `https://www.google.com/maps/search/?api=1&query= ${latitude} , ${longitude}`;
     Linking.openURL(url);
   }, [latitude, longitude]);
 
@@ -109,7 +109,7 @@ const Register = () => {
 
           <TextInput
             style={styles.input}
-            placeholder="Longitude"
+            placeholder=" E.g -7.797068"
             keyboardType="default"
             autoCapitalize="none"
             value={longitude}
@@ -118,7 +118,7 @@ const Register = () => {
 
           <TextInput
             style={styles.input}
-            placeholder="Latitude"
+            placeholder=" E.g 110.370529"
             keyboardType="default"
             autoCapitalize="none"
             value={latitude}
