@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text,Image  } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import MapboxGL, { MapView } from '@rnmapbox/maps';
 // import location from expo-location
 
@@ -36,8 +36,8 @@ const App = () => {
   const [markers, setMarkers] = useState<MarkerData[]>([]);
 
   const loadMarkers = async () => {
-    const response = await fetch('http://192.168.9.30:5000/user/allUsers');
-    // const response = await fetch('http://192.168.9.30:5000/user/allUsers');
+    const response = await fetch('http://192.168.0.171:5000/user/allUsers');
+    // const response = await fetch('http://192.168.0.171:5000/user/allUsers');
     const data = await response.json();
     setMarkers(data);
   };
@@ -93,8 +93,8 @@ const App = () => {
               <CustomCallout companyName={marker.companyName} phone={marker.phone} email={marker.email} />
             </MapboxGL.Callout>
           </MapboxGL.PointAnnotation>
-       
-          
+
+
         ))}
       </MapboxGL.MapView>
     </View>
@@ -137,5 +137,5 @@ const styles = StyleSheet.create({
 
 
 });
-  
+
 export default App;

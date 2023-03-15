@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 import Swiper from "react-native-swiper";
 
 type OnboardingItem = {
@@ -17,26 +17,28 @@ export default function Onboarding({ navigation }: Props) {
   const onboarding: OnboardingItem[] = [
     {
       id: 1,
-      title: "Welcome to Cattle Zoo",
-      subtitle: "The best place to find your cattle",
+      title: "Bienvenue sur MFN",
+      subtitle: "Transitaire Marocain",
       image: require("../assets/container1.png"),
     },
     {
       id: 2,
-      title: "Controlling your cattle's health",
-      subtitle: "You can control your cattle's health by using our app",
+      title: "Votre transitaire au Maroc",
+      subtitle: "Votre partenaire logistique",
       image: require("../assets/container2.png"),
     },
     {
       id: 3,
-      title: "Cattle's health is our priority",
-      subtitle: "We care about your cattle's health",
+      title: "Choisissez votre destination",
+      subtitle: "Vos biens et marchandises trouveront leur chemin vers la destination de votre choix ",
       image: require("../assets/container3.png"),
     },
   ];
 
   return (
+    <>
     <View style={styles.container}>
+   
       <Swiper
         paginationStyle={{
           position: "absolute",
@@ -77,7 +79,9 @@ export default function Onboarding({ navigation }: Props) {
           Get Started
         </Text>
       </TouchableOpacity>
-    </View>
+      </View>
+    </>
+ 
   );
 }
 
@@ -86,6 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+
   slide: {
     flex: 1,
     alignItems: "center",

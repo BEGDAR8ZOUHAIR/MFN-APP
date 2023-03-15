@@ -29,7 +29,7 @@ const DashboardScreen: React.FC = () => {
   const loadUsers = async () => {
     try {
       const response = await fetch(
-        "http://192.168.9.30:5000/user/allUsers"
+        "http://192.168.0.171:5000/user/allUsers"
       );
       const text = await response.text();
       const data = JSON.parse(text) as User[];

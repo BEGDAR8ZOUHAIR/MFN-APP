@@ -24,8 +24,8 @@ const Register = () => {
 
   const handleRegister = useCallback(async () => {
     try {
-      // const res = await fetch("http://192.168.9.30:5000/user/register", {
-      const res = await fetch("http://192.168.9.30:5000/user/register", {
+      // const res = await fetch("http://192.168.0.171:5000/user/register", {
+      const res = await fetch("http://192.168.0.171:5000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,10 +52,8 @@ const Register = () => {
     }
   }, [companyName, email, password, phone, address, longitude, latitude, navigation]);
 
-  const openMaps = useCallback(() => {
-    const url = `https://www.google.com/maps/search/?api=1&query= ${latitude} , ${longitude}`;
-    Linking.openURL(url);
-  }, [latitude, longitude]);
+
+
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -103,7 +101,7 @@ const Register = () => {
             value={address}
             onChangeText={setAddress}
           />
-          <TouchableOpacity style={styles.textMap} onPress={openMaps}>
+          <TouchableOpacity style={styles.textMap} onPress={() => navigation.navigate("Nav")}>
             <Text style={styles.buttonText}>Open Maps </Text>
           </TouchableOpacity>
 
