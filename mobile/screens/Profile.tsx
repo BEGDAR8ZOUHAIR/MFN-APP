@@ -15,7 +15,7 @@ const ProfileScreen = (): JSX.Element => {
             console.log(userId);
 
             try {
-                const response = await fetch(`http://192.168.0.171:5000/user/getUserById/${userId}`);
+                const response = await fetch(`http://192.168.9.30:5000/user/getUserById/${userId}`);
                 const data = await response.json();
                 setUser(data);
             } catch (error) {
