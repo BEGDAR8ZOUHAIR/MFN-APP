@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -10,7 +10,14 @@ import {
   Alert,
   ScrollView,
   Linking,
+  Permissions,
+  Modal,
 } from "react-native";
+import MapboxGL, { MapView } from "@rnmapbox/maps";
+
+const tokenMapBox = "pk.eyJ1IjoiYmVnZGFyOHpvdWhhaXIiLCJhIjoiY2xlenBlcmVhMDFmbDNwcjI4OGN6MmduNyJ9.C8WddE7zeAKKPswFe7AEjA";
+
+MapboxGL.setAccessToken(tokenMapBox);
 
 const Register = () => {
   const navigation = useNavigation();
@@ -19,13 +26,13 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState(0);
+  const [latitude, setLatitude] = useState(0);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleRegister = useCallback(async () => {
     try {
-      // const res = await fetch("http://192.168.9.30:5000/user/register", {
-      const res = await fetch("http://192.168.9.30:5000/user/register", {
+      const res = await fetch("http://192.168.0.171:5000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,13 +59,60 @@ const Register = () => {
     }
   }, [companyName, email, password, phone, address, longitude, latitude, navigation]);
 
+  useEffect(() => {
+    (async () => {
+      await MapboxGL.requestAndroidLocationPermissions();
+    })();
+  }, []);
 
+  const handleOpenMap = () => {
+    setIsModalVisible(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
 
+  const handleMapPress = (e: any) => {
+    const { geometry } = e;
+    setLongitude(geometry.coordinates[0]);
+    setLatitude(geometry.coordinates[1]);
+  };
 
   return (
+
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <Text style={styles.title}>Register</Text>
+        <Modal visible={isModalVisible} animationType="slide">
+          <View style={styles.modalContainer}>
+            <View style={styles.modalMapContainer}>
+              <MapboxGL.MapView
+                style={styles.map}
+                onPress={handleMapPress}
+                styleURL={MapboxGL.StyleURL.Street}
+              >
+                <MapboxGL.UserLocation />
+                <MapboxGL.Camera
+                  zoomLevel={14}
+                  centerCoordinate={[-7.58984375, 33.57311032714844]}
+                />
+                <MapboxGL.PointAnnotation
+                  id="pointAnnotation"
+                  coordinate={[longitude, latitude]}
+                />
+              </MapboxGL.MapView>
+            </View>
+            < View style={styles.modalButtonContainer}>
+              <TouchableOpacity style={styles.modalButton} onPress={handleCloseModal}>
+                <Text style={styles.modalButtonText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalButton} onPress={handleCloseModal}>
+                <Text style={styles.modalButtonText}>Save</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
         <View style={styles.formContainer}>
           <TextInput
             style={styles.input}
@@ -101,28 +155,26 @@ const Register = () => {
             value={address}
             onChangeText={setAddress}
           />
-          <TouchableOpacity style={styles.textMap} onPress={() => navigation.navigate("Nav")}>
+          <TouchableOpacity style={styles.textMap} onPress={handleOpenMap}>
             <Text style={styles.buttonText}>Open Maps </Text>
           </TouchableOpacity>
-
           <TextInput
             style={styles.input}
-            placeholder=" E.g -7.797068"
-            keyboardType="default"
+            placeholder="Longitude"
+            keyboardType="numeric"
             autoCapitalize="none"
-            value={longitude}
+            value={longitude.toString()}
             onChangeText={setLongitude}
-          />
 
+          />
           <TextInput
             style={styles.input}
-            placeholder=" E.g 110.370529"
-            keyboardType="default"
+            placeholder="Latitude"
+            keyboardType="numeric"
             autoCapitalize="none"
-            value={latitude}
+            value={latitude.toString()}
             onChangeText={setLatitude}
           />
-
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>Register</Text>
           </TouchableOpacity>
@@ -187,6 +239,54 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 4,
     marginBottom: 16,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F9F9F9",
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 16,
+  },
+  modalInput: {
+    height: 45,
+    backgroundColor: "#fff",
+    marginBottom: 16,
+    paddingHorizontal: 16,
+    borderRadius: 4,
+    width: "80%",
+  },
+  modalButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "80%",
+
+  },
+  modalButton: {
+    height: 45,
+    backgroundColor: "#0E8388",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+    width: "40%",
+  },
+  modalButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+
+  },
+  modalMapContainer: {
+    width: "100%",
+    height: "60%",
+    marginBottom: 16,
+  },
+  map: {
+
+    flex: 1,
   },
 });
 

@@ -15,7 +15,7 @@ const ProfileScreen = (): JSX.Element => {
             console.log(userId);
 
             try {
-                const response = await fetch(`http://192.168.9.30:5000/user/getUserById/${userId}`);
+                const response = await fetch(`http://192.168.0.171:5000/user/getUserById/${userId}`);
                 const data = await response.json();
                 setUser(data);
             } catch (error) {
@@ -98,15 +98,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     logoutButton: {
-        backgroundColor: '#0000ff',
         padding: 10,
         borderRadius: 5,
         marginBottom: 10,
     },
     logoutButtonText: {
-        color: '#fff',
+        color: '#0000ff',
+        fontWeight: 'bold',
         textAlign: 'center',
+
     },
+
+
     loadingContainer: {
         flex: 1,
         justifyContent: 'center',

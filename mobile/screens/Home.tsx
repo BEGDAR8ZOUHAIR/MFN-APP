@@ -18,11 +18,6 @@ interface MarkerData {
 }
 
 
-
-
-
-
-
 const CustomCallout = ({ companyName, phone, email }: { companyName: string, phone: number, email: string }) => (
   <View style={styles.calloutContainer}>
     <Text style={styles.calloutTitle}>{companyName}</Text>
@@ -36,8 +31,8 @@ const App = () => {
   const [markers, setMarkers] = useState<MarkerData[]>([]);
 
   const loadMarkers = async () => {
-    const response = await fetch('http://192.168.9.30:5000/user/allUsers');
-    // const response = await fetch('http://192.168.9.30:5000/user/allUsers');
+    const response = await fetch('http://192.168.0.171:5000/user/allUsers');
+    // const response = await fetch('http://192.168.0.171:5000/user/allUsers');
     const data = await response.json();
     setMarkers(data);
   };

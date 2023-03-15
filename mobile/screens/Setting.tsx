@@ -2,32 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Button, Linking, Permissions, StyleSheet } from 'react-native';
 
 export default function SettingsScreen() {
-  const [permissionStatus, setPermissionStatus] = useState(null);
+  // const [permissionStatus, setPermissionStatus] = useState(null);
 
-  useEffect(() => {
-    checkPermission();
-  }, []);
+  // useEffect(() => {
+  //   checkPermission();
+  // }, []);
 
-  const checkPermission = async () => {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    setPermissionStatus(status);
-  };
+  // const checkPermission = async () => {
+  //   const { status } = await Permissions.askAsync(Permissions.LOCATION);
+  //   setPermissionStatus(status);
+  // };
 
-  const handleSettingsPress = () => {
-    Linking.openSettings();
-  };
+  // const handleSettingsPress = () => {
+  //   Linking.openSettings();
+  // };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
-      <View style={styles.section}>
+      {/* <View style={styles.section}>
         <Text style={styles.sectionTitle}>Permissions</Text>
         <View style={styles.permissionRow}>
           <Text style={styles.permissionLabel}>Localisation</Text>
           <Text style={styles.permissionStatus}>{permissionStatus}</Text>
         </View>
         <Button title="Open Settings" onPress={handleSettingsPress} />
-      </View>
+      </View> */}
     </View>
   );
 }
