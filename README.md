@@ -1,6 +1,9 @@
 ## Transit Morocco App
 
-This is a mobile application for the management of public transport in Morocco. It is a project of the 2end year of the cycle of dvelopment of mobile applications at Youcode Safi , MOROCCO. 🔥🔥🔥🔥🔥🔥 
+MFN - Réseau de fret marocain La société MFN connecte les transitaires du Royaume Chérifien du Maroc avec une large gamme d'outils conçus pour une mise en réseau réussie.
+​
+MFN : aide les sociétés d'EXPORT-IMPORT-DISTRIBUTION du MAROC à profiter d'une large gamme d'outils (Application Mobile...) conçus pour une mise en réseau réussie ,ainsi pour créer un écosystème "ECO-TRANS"
+ 🔥🔥🔥🔥🔥🔥 
 
 
 
